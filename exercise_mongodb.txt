@@ -1,0 +1,17 @@
+$mongo “choose a db name” < mongo1.text
+$mongo
+> use “database name used in step 1”
+> db.users.find()
+> db.users.find({status:"A"})
+db.users.find({
+  status: "A",
+  $or: [
+    { age: { $lt: 30 } },
+    { type: 1 }
+  ]
+})
+
+> db.users.find({status:{$in:["P","D"]}})  / db.users.find( { $or: [ { status: "D" }, { status: "P" } ] } );
+>db.users.find({ "favorites.food": "pizza", "favorites.artist":"Picasso" });
+> db.users.find({"badges.0":"black"})
+> db.users.find({finished:{$elemMatch:{$gt:15,$lt:20}}},{"finished.$":1})
